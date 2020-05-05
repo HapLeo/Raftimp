@@ -1,0 +1,7 @@
+server:
+  port: 8080
+
+
+heartbeat:
+  timeout:
+    period: 3000
