@@ -2,8 +2,6 @@ package com.wuyulin.raftimp.model;
 
 import lombok.Data;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * 角色
  */
@@ -16,18 +14,13 @@ public abstract class Role {
     public static Role role = new Follower();
 
     /**
-     * 任期
-     */
-    public static AtomicInteger term = new AtomicInteger(1);
-
-    /**
-     * 活跃节点数
-     */
-    public static AtomicInteger liveNodeCnt = new AtomicInteger(1);
-
-    /**
      * 当前角色主要任务
      * @throws Exception
      */
-    public abstract void run() throws Exception;
+    public abstract void run();
+
+    /**
+     * 续约当前角色
+     */
+    public abstract void renewTreat();
 }

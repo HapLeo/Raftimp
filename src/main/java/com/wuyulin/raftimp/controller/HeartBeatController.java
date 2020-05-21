@@ -1,6 +1,7 @@
 package com.wuyulin.raftimp.controller;
 
 import com.wuyulin.raftimp.model.HeartBeatRequest;
+import com.wuyulin.raftimp.model.HeartBeatResponse;
 import com.wuyulin.raftimp.service.IHeartBeatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ public class HeartBeatController {
 
 
     @RequestMapping("/listen")
-    public Object listen(HeartBeatRequest heartBeatRequest) throws Exception {
+    public HeartBeatResponse listen(HeartBeatRequest heartBeatRequest) throws Exception {
 
         return heartBeatService.listen(heartBeatRequest);
     }

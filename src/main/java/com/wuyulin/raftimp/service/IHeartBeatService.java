@@ -1,6 +1,7 @@
 package com.wuyulin.raftimp.service;
 
 import com.wuyulin.raftimp.model.HeartBeatRequest;
+import com.wuyulin.raftimp.model.HeartBeatResponse;
 
 public interface IHeartBeatService {
 
@@ -13,5 +14,5 @@ public interface IHeartBeatService {
      * @param heartBeatRequest
      * @return
      */
-    Object listen(HeartBeatRequest heartBeatRequest) throws Exception;
+    HeartBeatResponse listen(HeartBeatRequest heartBeatRequest) throws Exception;
 }

@@ -1,3 +1,10 @@
 server:
   port: 8080
 
+local:
+  url: http://localhost:${server.port}
+  heartbeatTimeoutPeriod: 100
+  voteUrls:
+    -url0: http://localhost:8080/vote/checkVoteTicket
+    -url1: http://localhost:8081/vote/checkVoteTicket
+    -url2: http://localhost:8082/vote/checkVoteTicket

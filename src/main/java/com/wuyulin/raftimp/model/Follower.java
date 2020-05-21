@@ -1,7 +1,9 @@
 package com.wuyulin.raftimp.model;
 
-import com.wuyulin.raftimp.config.RaftConfig;
+import com.wuyulin.raftimp.config.NodeStatus;
 import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,11 +17,13 @@ import java.util.TimerTask;
 @Data
 public class Follower extends Role {
 
+    private Logger logger = LoggerFactory.getLogger(Follower.class);
+
     private static Timer timer;
 
     @Override
-    public void run() throws Exception {
-        System.out.println("以Follower身份开始运行...");
+    public void run(){
+        logger.info("以Follower身份开始运行...");
         renewTreat();
     }
 
@@ -27,13 +31,10 @@ public class Follower extends Role {
      * 续约
      * 如果超时没有执行该方法，则角色会从Follower转换成CANDIDATE
      */
-    public static void renewTreat() throws Exception {
+    @Override
+    public void renewTreat(){
         // 收到心跳，将计时器重置
-        if (RaftConfig.heartbeatTimeoutPeriod <= 0){
-            throw new Exception("请配置心跳超时时间！");
-        }
-
-        System.out.println("续约Follower身份...");
+        logger.info("续约Follower身份...");
         if (timer != null){
             timer.cancel();
         }
@@ -42,14 +43,11 @@ public class Follower extends Role {
 
             @Override
             public void run() {
+                logger.info("接收心跳超时，转换角色:Follower -> Candidate.");
                 // 接收Leader心跳超时，转换角色为Candidate
                 Role.role = new Candidate();
-                try {
-                    role.run();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                role.run();
             }
-        },RaftConfig.heartbeatTimeoutPeriod);
+        }, NodeStatus.heartbeatTimeoutPeriod);
     }
 }
